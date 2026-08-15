@@ -1,0 +1,39 @@
+* {
+
+    margin: 0px 0px 0px 0px;
+    padding: 0vh 0vh 0vh 0vh;
+    border-block: none none;
+
+}
+
+.game {
+
+    width: 480px;
+    height: 320px;
+    border-radius: 15px;
+
+}
+
+.play_game_pc {
+
+    width: 26vh;
+    height: 12vh;
+    font-size: 4vh;
+
+    position: absolute;
+    left: 28vh;
+    top: 35vh;
+
+}
+
+.play_game_mobile {
+
+    width: 26vh;
+    height: 12vh;
+    font-size: 4vh;
+
+    position: absolute;
+    left: 69vh;
+    top: 35vh;
+
+}
