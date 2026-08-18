@@ -8,13 +8,14 @@
 
 .game {
 
-    width: 480px;
-    height: 320px;
+    width: 800px;
+    height: 480px;
     border-radius: 15px;
+    background: linear-gradient(90deg, #e5e5e5, #343434);
 
 }
 
-.play_game_pc {
+.play_game {
 
     width: 26vh;
     height: 12vh;
@@ -22,18 +23,6 @@
 
     position: absolute;
     left: 28vh;
-    top: 35vh;
-
-}
-
-.play_game_mobile {
-
-    width: 26vh;
-    height: 12vh;
-    font-size: 4vh;
-
-    position: absolute;
-    left: 69vh;
     top: 35vh;
 
 }
