@@ -6,11 +6,19 @@
 
 }
 
+html, body {
+
+    background: #2e2e2e;
+    width: 100dvw;
+    height: 100dvh;
+
+}
+
 .game {
 
-    width: 800px;
-    height: 480px;
-    border-radius: 15px;
+    margin-left: 5%;
+    width: 100dvw;
+    height: 100dvh;
     background: linear-gradient(90deg, #e5e5e5, #343434);
 
 }
@@ -24,5 +32,75 @@
     position: absolute;
     left: 28vh;
     top: 35vh;
+
+}
+
+.up_button_m {
+
+    left: -50dvh;
+    top: 35dvh;
+    width: 18vh;
+    height: 18vh;
+
+}
+
+.down_button_m {
+
+    left: -50dvh;
+    top: 75dvh;
+    width: 18vh;
+    height: 18vh;
+
+}
+
+.left_button_m {
+
+    left: -50dvh;
+    top: 55dvh;
+    width: 18vh;
+    height: 18vh;
+
+}
+
+.right_button_m {
+
+    left: -50dvh;
+    top: 55dvh;
+    width: 18vh;
+    height: 18vh;
+
+}
+
+.a_button_m {
+
+    left: -50dvh;
+    top: 60dvh;
+    width: 25vh;
+    height: 25vh;
+
+}
+
+#button {
+
+    font-size: 5vh;
+    border-radius: 15px;
+    opacity: 0.55;
+    background: linear-gradient(180deg, #e5e5e5, #343434);
+    border: 3px solid #000000;
+    
+
+    position: absolute;
+
+}
+
+#button:active {
+
+    opacity: 0.9;
+
+}
+
+#button:hover {
+
+    border: 3px solid #000000;
 
 }
