@@ -18,6 +18,85 @@ play_game_button.addEventListener("mouseup", function() {
 
 })
 
+const up_button_m = document.querySelector(".up_button_m")
+const down_button_m = document.querySelector(".down_button_m")
+const left_button_m = document.querySelector(".left_button_m")
+const right_button_m = document.querySelector(".right_button_m")
+
+const a_button_m = document.querySelector(".a_button_m")
+
+function buttons_satrt() {
+
+    up_button_m.style.left = "20dvh"
+    down_button_m.style.left = "20dvh"
+    left_button_m.style.left = "4dvh"
+    right_button_m.style.left = "36dvh"
+    a_button_m.style.left = "160dvh"
+
+    up_button_m.addEventListener("touchstart", function() {
+
+        keys["w"] = true
+
+    })
+
+    down_button_m.addEventListener("touchstart", function() {
+
+        keys["s"] = true
+
+    })
+
+    left_button_m.addEventListener("touchstart", function() {
+
+        keys["a"] = true
+
+    })
+
+    right_button_m.addEventListener("touchstart", function() {
+
+        keys["d"] = true
+
+
+
+    })
+
+    a_button_m.addEventListener("touchstart", function() {
+
+        keys["Enter"] = true
+
+    })
+
+    up_button_m.addEventListener("touchend", function() {
+
+        keys["w"] = false
+
+    })
+
+    down_button_m.addEventListener("touchend", function() {
+
+        keys["s"] = false
+
+    })
+
+    left_button_m.addEventListener("touchend", function() {
+
+        keys["a"] = false
+
+    })
+
+    right_button_m.addEventListener("touchend", function() {
+
+        keys["d"] = false
+
+    })
+
+    a_button_m.addEventListener("touchend", function() {
+
+        keys["Enter"] = false
+
+    })
+
+}
+
 function Collision(a, b) {
     return (
         a.pos[0] < b.pos[0] + b.size[0] &&
@@ -276,7 +355,7 @@ const cena_1 = {
                     this.pos[0] = Math.max(0, Math.min(this.pos[0], canvas.width - this.size[0]))
                     this.pos[1] = Math.max(0, Math.min(this.pos[1], canvas.height - this.size[1]))
 
-                    for (let i = 0; i < cars.length-2; i++) {
+                    for (let i = 0; i < cars.length; i++) {
                     
                         if (Collision(this, cars[i])) {
 
@@ -534,6 +613,11 @@ function iniciar(mode) {
 
         canvas.width = 1000
         canvas.height = 600
+
+        canvas.style.width = "90dvw"
+        canvas.style.height = "100dvh"
+
+        buttons_satrt()
 
     }
 
