@@ -44,45 +44,54 @@ html, body {
 .up_button_m {
 
     left: -50dvh;
-    top: 35dvh;
-    width: 18vh;
-    height: 18vh;
+    bottom: 30dvh;
+    width: 25vh;
+    height: 25vh;
 
 }
 
 .down_button_m {
 
     left: -50dvh;
-    top: 75dvh;
-    width: 18vh;
-    height: 18vh;
+    bottom: 10dvh;
+    width: 25vh;
+    height: 25vh;
 
 }
 
 .left_button_m {
 
     left: -50dvh;
-    top: 55dvh;
-    width: 18vh;
-    height: 18vh;
+    bottom: 20dvh;
+    width: 25vh;
+    height: 25vh;
 
 }
 
 .right_button_m {
 
     left: -50dvh;
-    top: 55dvh;
-    width: 18vh;
-    height: 18vh;
+    bottom: 20dvh;
+    width: 25vh;
+    height: 25vh;
 
 }
 
 .a_button_m {
 
     right: 10dvh;
-    top: 60dvh;
-    width: 25vh;
-    height: 25vh;
+    bottom: 60dvh;
+    width: 35vh;
+    height: 35vh;
+
+}
+
+.b_button_m {
+
+    right: 10dvh;
+    bottom: 80dvh;
+    width: 20vh;
+    height: 20vh;
 
 }
 
@@ -115,7 +124,7 @@ html, body {
 
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    margin-top: 20vh;
+    flex-direction: column-reverse;
+    margin-top: 10vh;
 
 }
