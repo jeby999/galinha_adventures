@@ -1379,11 +1379,11 @@ function iniciar(mode) {
 
     if (mode == "mobile") {
 
-        canvas.width = 1000
-        canvas.height = 600
+        canvas.width = 500
+        canvas.height = 300
 
-        canvas.style.width = "90dvw"
-        canvas.style.height = "100dvh"
+        canvas.style.width = "60dvw"
+        canvas.style.height = "70dvh"
 
         buttons_satrt()
 
