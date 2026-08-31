@@ -60,7 +60,7 @@ function buttons_satrt() {
     down_button_m.style.left = "20dvh"
     left_button_m.style.left = "4dvh"
     right_button_m.style.left = "36dvh"
-    a_button_m.style.left = "160dvh"
+    a_button_m.style.right = "-30dvh"
 
     up_button_m.addEventListener("touchstart", function() {
 
@@ -576,7 +576,10 @@ class power_up {
         this.type = type
         this.render = true
         this.alpha = alpha
+        this.image = null
         this.culdown = 0
+
+        if (this.type == 0) { this.image = power_spr_1 }
 
     }
 
@@ -620,12 +623,8 @@ class power_up {
     draw() {
 
         if (this.render) {
-
-            if (this.type == 0) {
              
-                draw_image(this.pos, this.size, this.alpha, power_spr_1)
-            
-            }
+            draw_image(this.pos, this.size, this.alpha, power_spr_1)
 
         }
 
@@ -670,7 +669,8 @@ const cena_1 = {
 
     create:function() {
 
-        powers = [new power_up([randint(0, 901), randint(0, 507)], [99, 93], 0, true, 1)]
+        powers = [new power_up([randint(0, 901), randint(0, 507)], [99, 93], 0, true, [1, 0]),
+        new power_up([randint(0, 901), randint(0, 507)], [99, 93], 0, true,[1,0])]
 
         ineventario = []
 
@@ -944,6 +944,23 @@ const cena_1 = {
 
         background.update(true)
 
+        if (keys["Enter"] && camera.vely != 0) {
+
+            if (ineventario[0] == "vel") {
+
+                player.vel *= 2
+                player.acc *= 2
+                distance.wait /= 2
+                camera.vely *= 2
+                powers[0].culdown = frame + 2000
+
+                ineventario.shift()
+                keys["Enter"] = false
+
+            }
+
+        }
+
     },
 
     draw:function() {
@@ -984,19 +1001,6 @@ const cena_1 = {
 
             }
             
-        }
-
-        if (keys["Enter"] && camera.vely != 0) {
-
-            player.vel *= 2
-            player.acc *= 2
-            distance.wait /= 2
-            camera.vely *= 2
-            powers[0].culdown = frame + 2000
-
-            ineventario.shift()
-            keys["Enter"] = false
-
         }
 
     }
