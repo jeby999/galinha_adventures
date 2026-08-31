@@ -56,10 +56,11 @@ function buttons_satrt() {
     const a_button_m = document.createElement("button")
     const mobile_buttons = [up_button_m, down_button_m, left_button_m, right_button_m, a_button_m]
 
-    up_button_m.style.left = "20dvh"
-    down_button_m.style.left = "20dvh"
-    left_button_m.style.left = "4dvh"
-    right_button_m.style.left = "36dvh"
+    up_button_m.style.left = "32dvh"
+    down_button_m.style.left = "32dvh"
+    left_button_m.style.left = "7dvh"
+    right_button_m.style.left = "57dvh"
+
     a_button_m.style.right = "5dvh"
 
     up_button_m.addEventListener("touchstart", function() {
