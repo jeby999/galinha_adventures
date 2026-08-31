@@ -60,7 +60,7 @@ function buttons_satrt() {
     down_button_m.style.left = "20dvh"
     left_button_m.style.left = "4dvh"
     right_button_m.style.left = "36dvh"
-    a_button_m.style.right = "-30dvh"
+    a_button_m.style.right = "5dvh"
 
     up_button_m.addEventListener("touchstart", function() {
 
