@@ -15,8 +15,8 @@ html, body {
 }
 
 .game {
-
-    margin-left: 5%;
+    
+    opacity: 0;
     width: 100dvw;
     height: 100dvh;
     background: linear-gradient(90deg, #e5e5e5, #343434);
@@ -28,10 +28,17 @@ html, body {
     width: 26vh;
     height: 12vh;
     font-size: 4vh;
+    margin-top: 50vh;
+    background-color: blueviolet;
+    border-radius: 15px;
+    border: white 2px solid;
+    color: white;
 
-    position: absolute;
-    left: 28vh;
-    top: 35vh;
+}
+
+.play_game:hover {
+
+    background-color: rgb(75, 20, 126);
 
 }
 
@@ -102,5 +109,13 @@ html, body {
 #button:hover {
 
     border: 3px solid #000000;
+
+}
+
+.center {
+
+    display: flex;
+    justify-content: center;
+    height: 40vh;
 
 }
