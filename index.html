@@ -1,120 +1,27 @@
-* {
+<!DOCTYPE html>
+<html lang="pt-br">
 
-    margin: 0px 0px 0px 0px;
-    padding: 0vh 0vh 0vh 0vh;
-    border-block: none none;
+<head>
 
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galinha adverntures</title>
+    <link rel="stylesheet" href="style.css" defer>
 
-html, body {
+</head>
 
-    background: #2e2e2e;
-    width: 100dvw;
-    height: 100dvh;
+<body>
 
-}
+    <div class="center">
 
-.game {
-    
-    opacity: 0;
-    width: 100dvw;
-    height: 100dvh;
-    background: linear-gradient(90deg, #e5e5e5, #343434);
+        <canvas class="game" width="850" height="480"></canvas>
 
-}
+        <button class="play_game">RUN</button>
 
-.play_game {
+    </div>
 
-    width: 26vh;
-    height: 12vh;
-    font-size: 4vh;
-    background-color: blueviolet;
-    border-radius: 15px;
-    border: white 2px solid;
-    color: white;
+</body>
 
-}
+<script src="script.js" defer></script>
 
-.play_game:hover {
-
-    background-color: rgb(75, 20, 126);
-
-}
-
-.up_button_m {
-
-    left: -50dvh;
-    top: 35dvh;
-    width: 18vh;
-    height: 18vh;
-
-}
-
-.down_button_m {
-
-    left: -50dvh;
-    top: 75dvh;
-    width: 18vh;
-    height: 18vh;
-
-}
-
-.left_button_m {
-
-    left: -50dvh;
-    top: 55dvh;
-    width: 18vh;
-    height: 18vh;
-
-}
-
-.right_button_m {
-
-    left: -50dvh;
-    top: 55dvh;
-    width: 18vh;
-    height: 18vh;
-
-}
-
-.a_button_m {
-
-    right: 10dvh;
-    top: 60dvh;
-    width: 25vh;
-    height: 25vh;
-
-}
-
-#button {
-
-    font-size: 5vh;
-    border-radius: 15px;
-    opacity: 0.55;
-    background: linear-gradient(180deg, #e5e5e5, #343434);
-    border: 3px solid #000000;
-    
-
-    position: absolute;
-
-}
-
-#button:active {
-
-    opacity: 0.9;
-
-}
-
-#button:hover {
-
-    border: 3px solid #000000;
-
-}
-
-.center {
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-}
+</html>
