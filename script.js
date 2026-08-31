@@ -1382,8 +1382,8 @@ function iniciar(mode) {
         canvas.width = 500
         canvas.height = 300
 
-        canvas.style.width = "60dvw"
-        canvas.style.height = "70dvh"
+        canvas.style.width = "500px"
+        canvas.style.height = "300px"
 
         buttons_satrt()
 
