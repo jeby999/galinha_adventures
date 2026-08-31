@@ -44,7 +44,7 @@ html, body {
 .up_button_m {
 
     left: -50dvh;
-    bottom: 30dvh;
+    top: 55dvh;
     width: 25vh;
     height: 25vh;
 
@@ -53,7 +53,7 @@ html, body {
 .down_button_m {
 
     left: -50dvh;
-    bottom: 10dvh;
+    top: 95dvh;
     width: 25vh;
     height: 25vh;
 
@@ -62,7 +62,7 @@ html, body {
 .left_button_m {
 
     left: -50dvh;
-    bottom: 20dvh;
+    top: 75dvh;
     width: 25vh;
     height: 25vh;
 
@@ -71,7 +71,7 @@ html, body {
 .right_button_m {
 
     left: -50dvh;
-    bottom: 20dvh;
+    top: 75dvh;
     width: 25vh;
     height: 25vh;
 
@@ -80,7 +80,7 @@ html, body {
 .a_button_m {
 
     right: 10dvh;
-    bottom: 60dvh;
+    top: 80dvh;
     width: 35vh;
     height: 35vh;
 
@@ -89,7 +89,7 @@ html, body {
 .b_button_m {
 
     right: 10dvh;
-    bottom: 80dvh;
+    top: 60dvh;
     width: 20vh;
     height: 20vh;
 
