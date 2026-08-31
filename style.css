@@ -28,7 +28,6 @@ html, body {
     width: 26vh;
     height: 12vh;
     font-size: 4vh;
-    margin-top: 50vh;
     background-color: blueviolet;
     border-radius: 15px;
     border: white 2px solid;
@@ -80,7 +79,7 @@ html, body {
 
 .a_button_m {
 
-    left: -50dvh;
+    right: 10dvh;
     top: 60dvh;
     width: 25vh;
     height: 25vh;
@@ -116,6 +115,6 @@ html, body {
 
     display: flex;
     justify-content: center;
-    height: 40vh;
+    flex-direction: column;
 
 }
