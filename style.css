@@ -17,8 +17,8 @@ html, body {
 .game {
     
     opacity: 0;
-    width: 100dvw;
-    height: 100dvh;
+    width: 500px;
+    height: 300px;
     background: linear-gradient(90deg, #e5e5e5, #343434);
 
 }
@@ -125,6 +125,5 @@ html, body {
     display: flex;
     justify-content: center;
     flex-direction: column-reverse;
-    margin-top: 10vh;
 
 }
