@@ -54,7 +54,8 @@ function buttons_satrt() {
     const left_button_m = document.createElement("button")
     const right_button_m = document.createElement("button")
     const a_button_m = document.createElement("button")
-    const mobile_buttons = [up_button_m, down_button_m, left_button_m, right_button_m, a_button_m]
+    const b_button_m = document.createElement("button")
+    const mobile_buttons = [up_button_m, down_button_m, left_button_m, right_button_m, a_button_m, b_button_m]
 
     up_button_m.style.left = "32dvh"
     down_button_m.style.left = "32dvh"
@@ -62,6 +63,8 @@ function buttons_satrt() {
     right_button_m.style.left = "57dvh"
 
     a_button_m.style.right = "5dvh"
+    b_button_m.style.right = "5dvh"
+
 
     up_button_m.addEventListener("touchstart", function() {
 
@@ -95,6 +98,12 @@ function buttons_satrt() {
 
     })
 
+    b_button_m.addEventListener("touchstart", function() {
+
+        keys["Escape"] = true
+
+    })
+
     up_button_m.addEventListener("touchend", function() {
 
         keys["w"] = false
@@ -125,6 +134,12 @@ function buttons_satrt() {
 
     })
 
+    b_button_m.addEventListener("touchstart", function() {
+
+        keys["Escape"] = false
+
+    })
+
     for (let i = 0; i < mobile_buttons.length; i++) {
 
         mobile_buttons[i].id = "button"
@@ -136,12 +151,14 @@ function buttons_satrt() {
     mobile_buttons[2].classList.add("left_button_m")
     mobile_buttons[3].classList.add("right_button_m")
     mobile_buttons[4].classList.add("a_button_m")
+    mobile_buttons[5].classList.add("b_button_m")
 
     document.body.appendChild(mobile_buttons[0])
     document.body.appendChild(mobile_buttons[1])
     document.body.appendChild(mobile_buttons[2])
     document.body.appendChild(mobile_buttons[3])
     document.body.appendChild(mobile_buttons[4])
+    document.body.appendChild(mobile_buttons[5])
 
 }
 
