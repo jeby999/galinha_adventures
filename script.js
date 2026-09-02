@@ -1431,8 +1431,8 @@ function iniciar(mode) {
 
     if (mode == "mobile") {
 
-        canvas.width = 500
-        canvas.height = 300
+        canvas.width = 1000
+        canvas.height = 500
 
         canvas.style.width = "500px"
         canvas.style.height = "300px"
