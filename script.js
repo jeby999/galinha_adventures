@@ -134,7 +134,7 @@ function buttons_satrt() {
 
     })
 
-    b_button_m.addEventListener("touchstart", function() {
+    b_button_m.addEventListener("touchend", function() {
 
         keys["Escape"] = false
 
@@ -249,16 +249,18 @@ const player_skin_3 = new Image
 player_skin_3.src = "sprites/player_skin_3.png"
 
 
-/*
 const player_skin_1_w = [new Image, new Image]
-player_skin_1.src = ["sprites/player_skin_1_w1.png", "sprites/player_skin_1_w2.png"]
+player_skin_1_w[0].src = "sprites/player_skin_1_w1.png"
+player_skin_1_w[1].src = "sprites/player_skin_1_w2.png"
 
 const player_skin_2_w = [new Image, new Image]
-player_skin_2_w.src = ["sprites/player_skin_2_w1.png", "sprites/player_skin_2_w2.png"]
+player_skin_2_w[0].src = "sprites/player_skin_2_w1.png"
+player_skin_2_w[1].src = "sprites/player_skin_2_w2.png"
 
 const player_skin_3_w = [new Image, new Image]
-player_skin_3_w.src = ["sprites/player_skin_3_w1.png", "sprites/player_skin_3_w2.png"]
-*/
+player_skin_3_w[0].src = "sprites/player_skin_3_w1.png"
+player_skin_3_w[1].src = "sprites/player_skin_3_w2.png"
+
 
 const car_skin_1 = new Image
 car_skin_1.src = "sprites/car_skin_1.png"
@@ -726,7 +728,9 @@ const cena_1 = {
             vely:0,
             acc:0.5,
             life:50,
-            skin:skins_selector.skin_use[0],
+            skin_incator:0,
+            waiter:50 +frame,
+            skin:skins_selector.skin_use[2],
 
             morer:function() {
 
@@ -768,7 +772,7 @@ const cena_1 = {
                 if (active == true) {
 
                     draw_cube(this.pos, this.size, this.color, this.alpha[1])
-                    draw_image(this.sk_pos, this.sk_size, this.alpha[0], this.skin)
+                    draw_image(this.sk_pos, this.sk_size, this.alpha[0], this.skin[this.skin_incator])
 
                     write_text("VIDA", "bold 40px Arial", [20, 540], "white", 0.8)
                     draw_cube([20, 570], [100, 20], "red", 1, true)
@@ -781,6 +785,22 @@ const cena_1 = {
 
             update:function(active) {
                 if (active) {
+
+                    if (this.waiter == frame) {
+
+                        if (this.skin_incator == 0) {
+
+                            this.skin_incator = 1
+
+                        }else if (this.skin_incator == 1) {
+
+                            this.skin_incator = 0
+
+                        }
+
+                        this.waiter = 50 +frame
+
+                    }
 
                     this.pos[0] += this.velx
                     this.pos[1] += this.vely
@@ -1029,7 +1049,7 @@ const skins_selector = {
 
     id:2,
     skins_price:[-2, 40, 50, 70, 67, 88, 100, 130, 160, 190,],
-    skin_use:[player_skin_1, 0],
+    skin_use:[player_skin_1, 0, player_skin_1_w],
     skins:[player_skin_1, player_skin_2, player_skin_3, player_skin_2, player_skin_1,
     player_skin_2, player_skin_1, player_skin_2, player_skin_1, player_skin_2,],
     adx:152,
@@ -1148,6 +1168,20 @@ const skins_selector = {
                 }
 
                 this.skin_use[0] = this.skins[this.seleced[0]+this.add]
+
+                if (this.skin_use[0] == player_skin_1) {
+
+                    this.skin_use[2] = player_skin_1_w
+
+                }else if (this.skin_use == player_skin_2_w) {
+
+                    this.skin_use[2] = player_skin_2_w
+
+                }else if (this.skin_use == player_skin_3) {
+
+                    this.skin_use[2] = player_skin_3_w
+
+                }
                 
                 this.skins_price[this.seleced[0]+this.add] = -2
                 //this.skin_use[1] = this.seleced[0]+this.add
@@ -1171,7 +1205,7 @@ const skins_selector = {
         
         background.draw(true)
 
-        for (let i = 0; i < this.skins.length; i++) {
+        for (let i = 0; i < this.skins.length-7; i++) {
 
             if (i >= 6) {
 
