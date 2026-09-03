@@ -25,8 +25,8 @@ html, body {
 
 .play_game {
 
-    width: 26vh;
-    height: 12vh;
+    width: 100vh;
+    height: 20vh;
     font-size: 4vh;
     background-color: blueviolet;
     border-radius: 15px;
@@ -44,7 +44,7 @@ html, body {
 .up_button_m {
 
     left: -50dvh;
-    top: 65dvh;
+    top: 22dvh;
     width: 25vh;
     height: 25vh;
 
@@ -53,7 +53,7 @@ html, body {
 .down_button_m {
 
     left: -50dvh;
-    top: 115dvh;
+    top: 70dvh;
     width: 25vh;
     height: 25vh;
 
@@ -62,7 +62,7 @@ html, body {
 .left_button_m {
 
     left: -50dvh;
-    top: 90dvh;
+    top: 45dvh;
     width: 25vh;
     height: 25vh;
 
@@ -71,7 +71,7 @@ html, body {
 .right_button_m {
 
     left: -50dvh;
-    top: 90dvh;
+    top: 45dvh;
     width: 25vh;
     height: 25vh;
 
@@ -80,7 +80,7 @@ html, body {
 .a_button_m {
 
     right: 10dvh;
-    top: 90dvh;
+    top: 55dvh;
     width: 35vh;
     height: 35vh;
 
@@ -89,7 +89,7 @@ html, body {
 .b_button_m {
 
     right: 10dvh;
-    top: 60dvh;
+    top: 30dvh;
     width: 20vh;
     height: 20vh;
 
