@@ -1546,7 +1546,7 @@ function iniciar(mode) {
 
     }
 
-    play_sound(musica_fundo_1, 0.67, 0, true)
+    //play_sound(musica_fundo_1, 0.67, 0, true)
 
     try {
 
