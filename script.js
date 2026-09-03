@@ -1545,9 +1545,6 @@ function iniciar(mode) {
         buttons_satrt()
 
     }
-
-    //play_sound(musica_fundo_1, 0.67, 0, true)
-
     try {
 
         money = Number(localStorage.getItem("money"))
@@ -1595,5 +1592,6 @@ function iniciar(mode) {
     play_game_button.style.opacity = 0
 
     mainloop()
+    play_sound(musica_fundo_1, 0.67, 0, true)
     
 }
