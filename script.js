@@ -3,6 +3,8 @@ const ctx = canvas.getContext("2d");
 
 const play_game_button = document.querySelector(".play_game")
 
+game_tick = 1
+
 const keys = {};
 
 play_game_button.addEventListener("touchend", function() {
@@ -234,10 +236,23 @@ function randint(min, max) {
 
 }
 
+function play_sound(sound, volume, start, loop) {
+
+    sound.currentTime = start
+    sound.volume = volume
+    sound.loop = loop
+    sound.play()
+
+}
+
+//carregabdo musicas
+
+const musica_fundo_1 = new Audio("sprites/musica_game_1.mp3");
+
 //caregando imagens imagens
 
 const background_style_1 = new Image
-background_style_1.src = "sprites/background.jpg"
+background_style_1.src = "sprites/background.png"
 
 const player_skin_1 = new Image
 player_skin_1.src = "sprites/player_skin_1.png"
@@ -247,6 +262,9 @@ player_skin_2.src = "sprites/player_skin_2.png"
 
 const player_skin_3 = new Image
 player_skin_3.src = "sprites/player_skin_3.png"
+
+const player_skin_4 = new Image
+player_skin_4.src = "sprites/player_skin_4.png"
 
 
 const player_skin_1_w = [new Image, new Image]
@@ -260,6 +278,10 @@ player_skin_2_w[1].src = "sprites/player_skin_2_w2.png"
 const player_skin_3_w = [new Image, new Image]
 player_skin_3_w[0].src = "sprites/player_skin_3_w1.png"
 player_skin_3_w[1].src = "sprites/player_skin_3_w2.png"
+
+const player_skin_4_w = [new Image, new Image]
+player_skin_4_w[0].src = "sprites/player_skin_4_w1.png"
+player_skin_4_w[1].src = "sprites/player_skin_4_w2.png"
 
 
 const car_skin_1 = new Image
@@ -284,6 +306,9 @@ car_skin_6.src = "sprites/car_skin_6.png"
 const power_spr_1 = new Image
 power_spr_1.src = "sprites/power_1.png"
 
+const power_spr_2 = new Image
+power_spr_2.src = "sprites/power_2.png"
+
 const life_heart_spr = new Image
 life_heart_spr.src = "sprites/vida.png"
 
@@ -302,7 +327,7 @@ class car {
         this.image = image
         this.index = index
 
-        if (this.type == "g") {this.speed = 6}
+        if (this.type == "g") {this.speed = 6*game_tick}
 
     }
 
@@ -344,7 +369,7 @@ class car {
 
             if (this.speed == 0) {
 
-                this.speed = 6
+                this.speed = 6*game_tick
 
             }
 
@@ -362,7 +387,7 @@ class car {
 
             if (this.speed == 0) {
 
-                this.speed = 6
+                this.speed = 6*game_tick
 
             }
 
@@ -378,7 +403,7 @@ class car {
 
         else if (this.type == "r" && distance.m >= 60) {
 
-            this.speed = 5
+            this.speed = 5*game_tick
             this.pos[1] += this.speed
 
             if (this.pos[1] >= 600) {
@@ -400,7 +425,7 @@ class car {
 
         else if (this.type == "r2" && distance.m >= 70) {
 
-            this.speed = 5
+            this.speed = 5*game_tick
             this.pos[1] += this.speed
 
             if (this.pos[1] >= 600) {
@@ -422,7 +447,7 @@ class car {
 
         else if (this.type == "r3" && distance.m >= 80) {
 
-            this.speed = 5
+            this.speed = 5*game_tick
             this.pos[1] += this.speed
 
             if (this.pos[1] >= 600) {
@@ -446,7 +471,7 @@ class car {
 
             if (this.speed <= 0) {
 
-                this.speed = 7
+                this.speed = 7*game_tick
 
             }
 
@@ -465,7 +490,7 @@ class car {
 
             if (this.speed <= 0) {
 
-                this.speed = 7
+                this.speed = 7*game_tick
 
             }
 
@@ -484,7 +509,7 @@ class car {
 
             if (this.speed <= 0) {
 
-                this.speed = 7
+                this.speed = 7*game_tick
 
             }
 
@@ -503,13 +528,13 @@ class car {
 
             if (this.speed == 0) {
 
-                this.speed = 1
+                this.speed = 1*game_tick
 
             }
 
             if (this.pos[0] > 240 && this.pos[0] < 620) {
 
-                this.speed = 4
+                this.speed = 4*game_tick
 
             }else{
 
@@ -531,13 +556,13 @@ class car {
 
             if (this.speed == 0) {
 
-                this.speed = 1
+                this.speed = 1*game_tick
 
             }
 
             if (this.pos[0] > 240 && this.pos[0] < 620) {
 
-                this.speed = 4
+                this.speed = 4*game_tick
 
             }else{
 
@@ -559,17 +584,17 @@ class car {
 
             if (this.speed == 0) {
 
-                this.speed = 1
+                this.speed = 1*game_tick
 
             }
 
             if (this.pos[0] > 240 && this.pos[0] < 620) {
 
-                this.speed = 4
+                this.speed = 4*game_tick
 
             }else{
 
-                this.speed = 10
+                this.speed = 10*game_tick
 
             }
 
@@ -600,6 +625,7 @@ class power_up {
         this.culdown = 0
 
         if (this.type == 0) { this.image = power_spr_1 }
+        else if (this.type == 1) { this.image = life_heart_spr }
 
     }
 
@@ -638,13 +664,43 @@ class power_up {
 
         }
 
+        if (this.type == 1) {
+
+            //culdown = 1000
+
+            if (Collision(this, player) && this.render == true) {
+
+                if (ineventario.length <= 3) {
+
+                    ineventario.unshift("life")
+
+                }
+
+                this.render = false
+                
+            }
+
+            if (this.culdown > 0 && this.culdown-700 == frame) {
+            
+                player.life == 100
+
+            }
+
+            else if (this.culdown > 0 && this.culdown == frame){
+
+                this.render = true
+
+            }
+
+        }
+
     }
 
     draw() {
 
         if (this.render) {
              
-            draw_image(this.pos, this.size, this.alpha, power_spr_1)
+            draw_image(this.pos, this.size, this.alpha, this.image)
 
         }
 
@@ -681,7 +737,7 @@ let beter_distance = 0
 let cena_id = 1
 let skins
 let ineventario = []
-
+let pause = false
 
 const cena_1 = {
 
@@ -689,23 +745,23 @@ const cena_1 = {
 
     create:function() {
 
-        powers = [new power_up([randint(0, 901), randint(0, 507)], [99, 93], 0, true, [1, 0]),
-        new power_up([randint(0, 901), randint(0, 507)], [99, 93], 0, true,[1,0])]
+        powers = [new power_up([randint(0, 830), randint(0, 880)], [223, 223], 0, true, [1, 0]),
+        new power_up([randint(0, 830), randint(0, 880)], [99, 93], 1, true,[1,0])]
 
         ineventario = []
 
-        distance = { m:0, wait:60, waiter:frame+60, color:"white", draw:function() {
+        distance = { m:0, wait:60*game_tick, waiter:frame+60, color:"white", draw:function() {
 
-            write_text(`M: ${this.m}`, "bold 40px Arial", [130, 590], this.color, 0.8)
+            write_text(`M: ${this.m}`, "bold 60px Arial", [430, 80], this.color, 0.8)
 
-            if (frame == this.waiter) {
+            if (frame == this.waiter && !pause) {
 
                 this.waiter = frame + this.wait
                 this.m += 1
 
             }
 
-            if (this.m > beter_distance) {
+            if (this.m > beter_distance && !pause) {
 
                 this.color = "yellow"
 
@@ -723,13 +779,13 @@ const cena_1 = {
             sk_pos:[90, 280],
             color:"orange",
             alpha:[1,0],
-            vel:8,
+            vel:8000*game_tick,
             velx:0,
             vely:0,
-            acc:0.5,
+            acc:500*game_tick,
             life:50,
             skin_incator:0,
-            waiter:50 +frame,
+            waiter:50*game_tick +frame,
             skin:skins_selector.skin_use[2],
 
             morer:function() {
@@ -774,10 +830,10 @@ const cena_1 = {
                     draw_cube(this.pos, this.size, this.color, this.alpha[1])
                     draw_image(this.sk_pos, this.sk_size, this.alpha[0], this.skin[this.skin_incator])
 
-                    write_text("VIDA", "bold 40px Arial", [20, 540], "white", 0.8)
-                    draw_cube([20, 570], [100, 20], "red", 1, true)
-                    draw_cube([20, 570], [this.life*2, 20], "rgb(0, 254, 0)", 1, true)
-                    draw_cube([20, 570], [100, 20], "", 1, false, ["black", 2])
+
+                    draw_cube([220, 15], [200, 70], "red", 1, true)
+                    draw_cube([220, 15], [this.life*4, 70], "rgb(0, 254, 0)", 1, true)
+                    draw_cube([220, 15], [200, 70], "", 1, false, ["black", 2])
 
                 }
 
@@ -798,12 +854,12 @@ const cena_1 = {
 
                         }
 
-                        this.waiter = 50 +frame
+                        this.waiter = 50*game_tick +frame
 
                     }
 
-                    this.pos[0] += this.velx
-                    this.pos[1] += this.vely
+                    this.pos[0] += this.velx/1000
+                    this.pos[1] += this.vely/1000
 
                     this.sk_pos = [this.pos[0]-10, this.pos[1]-20]
 
@@ -822,16 +878,6 @@ const cena_1 = {
                         }
 
                     }
-
-                    /*
-                    if (this.cd_invincible == frame && this.invincible == true) {
-
-                        this.cd_invincible = null
-                        this.alpha[0] = 1
-
-                        this.invincible = false
-
-                    }*/
 
                     if (this.life <= 0) {
 
@@ -872,7 +918,7 @@ const cena_1 = {
                     if (keys["a"]) {
 
                         if (this.velx > -this.vel) {
-
+                            
                             this.velx -= this.acc
 
                         }
@@ -966,39 +1012,69 @@ const cena_1 = {
 
     update:function() {
 
-        player.update(true)
+        if (!pause) {
 
-        for (let i = 0; i < powers.length; i++) {
+            if (keys["Escape"]) {
 
-            powers[i].update()
+                pause = true
+                musica_fundo_1.pause()
+                keys["Escape"] = false
 
-        }
+            }
 
-        for (let i = 0; i < cars.length; i++) {
+            player.update(true)
 
-            cars[i].update()
-            
-        }
+            for (let i = 0; i < powers.length; i++) {
 
-        background.update(true)
+                powers[i].update()
 
-        if (keys["Enter"] && camera.vely != 0) {
+            }
 
-            if (ineventario[0] == "vel") {
+            for (let i = 0; i < cars.length; i++) {
 
-                player.vel *= 2
-                player.acc *= 2
-                distance.wait /= 2
-                camera.vely *= 2
-                powers[0].culdown = frame + 2000
+                cars[i].update()
+                
+            }
 
-                ineventario.shift()
-                keys["Enter"] = false
+            background.update(true)
+
+            if (keys["Enter"] && camera.vely != 0) {
+
+                if (ineventario[0] == "vel") {
+
+                    player.vel *= 2
+                    player.acc *= 2
+                    distance.wait /= 2
+                    camera.vely *= 2
+                    powers[0].culdown = frame + 2000
+
+                    ineventario.shift()
+                    keys["Enter"] = false
+
+                }
+                else if (ineventario[0] == "life") {
+
+                    player.life = 50
+                    powers[0].culdown = frame + 2000
+
+                    ineventario.shift()
+                    keys["Enter"] = false
+
+                }
+
+            }
+
+        }else{
+
+            if (keys["Escape"]) {
+
+                pause = false
+                musica_fundo_1.play()
+                keys["Escape"] = false
 
             }
 
         }
-
     },
 
     draw:function() {
@@ -1038,6 +1114,19 @@ const cena_1 = {
                 }
 
             }
+            else if (ineventario[i] == "life") {
+
+                if (i==0) {
+                
+                    draw_image([20+60*i,25], [50,50], 1, life_heart_spr)
+
+                }else{
+
+                    draw_image([30+60*i,25], [50,50], 1, life_heart_spr)
+
+                }
+
+            }
             
         }
 
@@ -1048,16 +1137,15 @@ const cena_1 = {
 const skins_selector = {
 
     id:2,
-    skins_price:[-2, 40, 50, 70, 67, 88, 100, 130, 160, 190,],
+    skins_price:[-2, 100, 260, 340],
     skin_use:[player_skin_1, 0, player_skin_1_w],
-    skins:[player_skin_1, player_skin_2, player_skin_3, player_skin_2, player_skin_1,
-    player_skin_2, player_skin_1, player_skin_2, player_skin_1, player_skin_2,],
+    skins:[player_skin_1, player_skin_2, player_skin_3, player_skin_4],
     adx:152,
     ady:172,
     add:0,
     pos:[80, 150],
     coll:0,
-    seleced:[0, 1, 5, 1],
+    seleced:[0, 1, 3, 1],
     selec_rect:{
 
         pos:[65, 140],
@@ -1168,20 +1256,29 @@ const skins_selector = {
                 }
 
                 this.skin_use[0] = this.skins[this.seleced[0]+this.add]
+                this.skin_use[1] = this.seleced[0]+this.add
 
-                if (this.skin_use[0] == player_skin_1) {
+                console.log(this.skin_use[1])
+
+                if (this.skin_use[1] == 0) {
 
                     this.skin_use[2] = player_skin_1_w
 
-                }else if (this.skin_use == player_skin_2_w) {
+                }else if (this.skin_use[1] == 1) {
 
                     this.skin_use[2] = player_skin_2_w
 
-                }else if (this.skin_use == player_skin_3) {
+                }else if (this.skin_use[1] == 2) {
 
                     this.skin_use[2] = player_skin_3_w
 
+                }else if (this.skin_use[1] == 3) {
+
+                    this.skin_use[2] = player_skin_4_w
+
                 }
+
+                console.log(this.skin_use)
                 
                 this.skins_price[this.seleced[0]+this.add] = -2
                 //this.skin_use[1] = this.seleced[0]+this.add
@@ -1205,7 +1302,7 @@ const skins_selector = {
         
         background.draw(true)
 
-        for (let i = 0; i < this.skins.length-7; i++) {
+        for (let i = 0; i < this.skins.length; i++) {
 
             if (i >= 6) {
 
@@ -1404,12 +1501,18 @@ function mainloop() {
 
     }
 
-    frame++
+    if (!pause) {
+
+        frame++
+
+    }
 
     requestAnimationFrame(mainloop);
 }
 
 function iniciar(mode) {
+
+    console.log(mode)
 
     if (mode == "pc") {
 
@@ -1431,15 +1534,19 @@ function iniciar(mode) {
 
     if (mode == "mobile") {
 
-        canvas.width = 1000
-        canvas.height = 500
+        canvas.width = window.innerWidth+150
+        canvas.height = window.innerHeight+140
 
-        canvas.style.width = "500px"
-        canvas.style.height = "300px"
+        canvas.style.width = `${window.innerWidth}px`
+        canvas.style.height = `${window.innerHeight}px`
+
+        game_tick = 0.7
 
         buttons_satrt()
 
     }
+
+    play_sound(musica_fundo_1, 0.67, 0, true)
 
     try {
 
@@ -1478,8 +1585,13 @@ function iniciar(mode) {
 
     }
 
+    //canvas.style.marginTop = "-11vh"
     canvas.style.opacity = 1
 
+    play_game_button.style.width = "0px"
+    play_game_button.width = 0
+    play_game_button.style.height = "0px"
+    play_game_button.height = 0
     play_game_button.style.opacity = 0
 
     mainloop()
