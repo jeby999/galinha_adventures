@@ -224,9 +224,14 @@ function write_text(text, font, pos, color, alpha) {
 
     ctx.font = font;
     ctx.fillStyle = color;
+
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = 6
+    ctx.strokeText(text, pos[0], pos[1])
+
     ctx.globalAlpha = alpha
 
-    ctx.fillText(text, pos[0], pos[1]);
+    ctx.fillText(text, pos[0], pos[1])
 
 }
 
@@ -337,7 +342,7 @@ class car {
 
             draw_cube(this.pos, this.size, this.color, this.alpha[1], false)
             
-            if (this.type == "y" || "y2" || "y3") {
+            if (this.type == "y" || "y2" || "y3" || "y4") {
 
                 draw_image(this.pos, [81, 152], this.alpha[0], this.image, this.angle)
 
@@ -509,16 +514,35 @@ class car {
 
             if (this.speed <= 0) {
 
-                this.speed = 7*game_tick
+                this.speed = -7*game_tick
 
             }
 
             this.pos[0] += this.speed
             this.angle += this.speed
 
-            if (this.pos[0] >= 1000) {
+            if (this.pos[0] <= -100) {
 
-                this.pos = [-1000, randint(40, 460)]
+                this.pos = [2000, randint(40, 460)]
+
+            }
+
+        }
+
+        else if (this.type == "y4" && distance.m >= 50) {
+
+            if (this.speed <= 0) {
+
+                this.speed = -7*game_tick
+
+            }
+
+            this.pos[0] += this.speed
+            this.angle += this.speed
+
+            if (this.pos[0] <= -100) {
+
+                this.pos = [2000, randint(40, 460)]
 
             }
 
@@ -637,27 +661,29 @@ class power_up {
 
             if (Collision(this, player) && this.render == true) {
 
-                if (ineventario.length <= 3) {
+                if (ineventario.length <= 2) {
 
                     ineventario.unshift("vel")
 
                 }
 
+                this.culdown = frame+ 2000
                 this.render = false
                 
             }
 
-            if (this.culdown > 0 && this.culdown-700 == frame) {
+            if (this.culdown > 0 && this.culdown-700 == frame && player.vel == 8000*4) {
             
-                player.vel /= 2
-                player.acc /= 2
-                distance.wait *= 2
-                camera.vely /= 2
+                player.vel /= 4
+                player.wait = 50
+                distance.wait *= 4
+                camera.vely /= 4
 
             }
 
             else if (this.culdown > 0 && this.culdown == frame){
 
+                this.pos = [randint(0, 830), randint(0, 470)]
                 this.render = true
 
             }
@@ -670,9 +696,10 @@ class power_up {
 
             if (Collision(this, player) && this.render == true) {
 
-                if (ineventario.length <= 3) {
+                if (ineventario.length <= 2) {
 
                     ineventario.unshift("life")
+                    powers[1].culdown = frame + 1000
 
                 }
 
@@ -680,14 +707,9 @@ class power_up {
                 
             }
 
-            if (this.culdown > 0 && this.culdown-700 == frame) {
-            
-                player.life == 100
+            if (this.culdown > 0 && this.culdown == frame){
 
-            }
-
-            else if (this.culdown > 0 && this.culdown == frame){
-
+                this.pos = [randint(0, 830), randint(0, 470)]
                 this.render = true
 
             }
@@ -745,14 +767,14 @@ const cena_1 = {
 
     create:function() {
 
-        powers = [new power_up([randint(0, 830), randint(0, 880)], [223, 223], 0, true, [1, 0]),
-        new power_up([randint(0, 830), randint(0, 880)], [99, 93], 1, true,[1,0])]
+        powers = [new power_up([randint(0, 830), randint(0, 470)], [40, 80], 0, true, [1, 0]),
+        new power_up([randint(0, 830), randint(0, 470)], [99, 93], 1, true,[1,0])]
 
         ineventario = []
 
         distance = { m:0, wait:60*game_tick, waiter:frame+60, color:"white", draw:function() {
 
-            write_text(`M: ${this.m}`, "bold 60px Arial", [430, 80], this.color, 0.8)
+            write_text(`metros: ${this.m}`, "bold 60px Silkscreen", [430, 80], this.color, 0.8)
 
             if (frame == this.waiter && !pause) {
 
@@ -773,7 +795,7 @@ const cena_1 = {
 
         player = {
 
-            pos:[100, 300],
+            pos:[30, 300],
             size:[50, 80],
             sk_size:[102, 102],
             sk_pos:[90, 280],
@@ -785,16 +807,28 @@ const cena_1 = {
             acc:500*game_tick,
             life:50,
             skin_incator:0,
+            wait:50,
             waiter:50*game_tick +frame,
             skin:skins_selector.skin_use[2],
 
             morer:function() {
 
+                musica_fundo_1.pause()
                 camera.vely = 0
                 this.vely = 0
                 this.alpha[0] = 0
 
-                if (this.life < 0) {this.life = 0}
+                if (this.life != 0) {
+                    
+                    keys["Escape"] = false
+                    keys["Enter"] = false
+                    keys["w"] = false
+                    keys["s"] = false
+                    keys["a"] = false
+                    keys["d"] = false
+                    this.life = 0
+                
+                }
 
                 console.log(distance.m)
 
@@ -803,9 +837,12 @@ const cena_1 = {
                 menu.op[2].cansave = true
                 menu.op[2].alpha = 1
 
-                write_text("game over", "90px Arial", [320, 270], "red", 1)
+                write_text("game over", "90px Silkscreen", [210, 270], "red", 1)
+                write_text("aperte qualquer botão", "40px Silkscreen", [200, 320], "red", 1)
 
-                if (keys["Enter"]) {
+                if (keys["Enter"] || keys["w"] || keys["s"] || keys["a"] || keys["d"] || keys["Escape"]) {
+
+                    play_sound(musica_fundo_1, 0.67, 0, true)
 
                     money += distance.m
                     cena_id = 1
@@ -832,7 +869,7 @@ const cena_1 = {
 
 
                     draw_cube([220, 15], [200, 70], "red", 1, true)
-                    draw_cube([220, 15], [this.life*4, 70], "rgb(0, 254, 0)", 1, true)
+                    draw_cube([220, 15], [this.life*2, 70], "rgb(0, 254, 0)", 1, true)
                     draw_cube([220, 15], [200, 70], "", 1, false, ["black", 2])
 
                 }
@@ -854,7 +891,7 @@ const cena_1 = {
 
                         }
 
-                        this.waiter = 50*game_tick +frame
+                        this.waiter = this.wait * game_tick +frame
 
                     }
 
@@ -863,8 +900,8 @@ const cena_1 = {
 
                     this.sk_pos = [this.pos[0]-10, this.pos[1]-20]
 
-                    this.pos[0] = Math.max(0, Math.min(this.pos[0], canvas.width - this.size[0]))
-                    this.pos[1] = Math.max(0, Math.min(this.pos[1], canvas.height - this.size[1]))
+                    this.pos[0] = Math.max(0, Math.min(this.pos[0], 1000 - this.size[0]))
+                    this.pos[1] = Math.max(0, Math.min(this.pos[1], 600 - this.size[1]))
 
                     this.alpha[0] = 1
 
@@ -993,7 +1030,8 @@ const cena_1 = {
         new car([randint(240, 620), -152], [81, 152], "red", [1,0], true, "g3", car_skin_1),
         new car([-100, randint(0, 448)], [100, 100], "red", [1,0], true, "y", car_skin_3),
         new car([-100, randint(0, 448)], [100, 100], "red", [1,0], true, "y2", car_skin_3),
-        new car([-100, randint(0, 448)], [100, 100], "red", [1,0], true, "y3", car_skin_3),
+        new car([1100, randint(0, 448)], [100, 100], "red", [1,0], true, "y3", car_skin_3),
+        new car([1100, randint(0, 448)], [100, 100], "red", [1,0], true, "y4", car_skin_3),
         new car([randint(240, 620), -152], [81, 152], "red", [1,0], true, "r", car_skin_2),
         new car([randint(240, 620), -152], [81, 152], "red", [1,0], true, "r2", car_skin_2),
         new car([randint(240, 620), -152], [81, 152], "red", [1,0], true, "r3", car_skin_2),
@@ -1042,11 +1080,10 @@ const cena_1 = {
 
                 if (ineventario[0] == "vel") {
 
-                    player.vel *= 2
-                    player.acc *= 2
-                    distance.wait /= 2
-                    camera.vely *= 2
-                    powers[0].culdown = frame + 2000
+                    player.vel *= 4
+                    player.wait = 10
+                    distance.wait /= 4
+                    camera.vely *= 4
 
                     ineventario.shift()
                     keys["Enter"] = false
@@ -1054,8 +1091,7 @@ const cena_1 = {
                 }
                 else if (ineventario[0] == "life") {
 
-                    player.life = 50
-                    powers[0].culdown = frame + 2000
+                    player.life = 100
 
                     ineventario.shift()
                     keys["Enter"] = false
@@ -1105,11 +1141,12 @@ const cena_1 = {
 
                 if (i==0) {
                 
-                    draw_image([20+60*i,25], [50,50], 1, power_spr_1)
+                    draw_image([20+100*i,25], [30,50], 1, power_spr_1)
 
                 }else{
 
-                    draw_image([30+60*i,25], [50,50], 1, power_spr_1)
+                    draw_image([20+90*i,25], [30,50], 1, power_spr_1)
+
 
                 }
 
@@ -1143,12 +1180,12 @@ const skins_selector = {
     adx:152,
     ady:172,
     add:0,
-    pos:[80, 150],
+    pos:[300, 150],
     coll:0,
     seleced:[0, 1, 3, 1],
     selec_rect:{
 
-        pos:[65, 140],
+        pos:[195, 140],
         size:[122, 162],
         alpha:1,
         color:"chartreuse",
@@ -1307,12 +1344,12 @@ const skins_selector = {
             if (i >= 6) {
 
                 this.coll = 1
-                this.pos[0] = 80 + this.adx * (i-6)
+                this.pos[0] = 210 + this.adx * (i-6)
                 
 
             }else{
 
-                this.pos[0] = 80 + this.adx * i
+                this.pos[0] = 210 + this.adx * i
                 this.coll = 0
 
             }
@@ -1323,22 +1360,22 @@ const skins_selector = {
             
             if (this.skins_price[i] == -1) {
 
-                write_text("tem", "40px Arial", [this.pos[0]+10, this.pos[1]+142], "green", 1)
+                write_text("tem", "40px Silkscreen", [this.pos[0]+10, this.pos[1]+142], "green", 1)
 
             }else if (this.skins_price[i] == -2) {
 
-                write_text("uso", "40px Arial", [this.pos[0]+10, this.pos[1]+142], "chartreuse", 1)
+                write_text("uso", "40px Silkscreen", [this.pos[0]+10, this.pos[1]+142], "chartreuse", 1)
 
             }else{
 
-                write_text(this.skins_price[i], "40px Arial", [this.pos[0]+10, this.pos[1]+142], "red", 1)
+                write_text(this.skins_price[i], "40px Silkscreen", [this.pos[0]+10, this.pos[1]+142], "red", 1)
 
             }
 
-            write_text(`money: ${money}`, "50px Arial", [400, 50], "green", 0.6)
+            write_text(`money: ${money}`, "50px Silkscreen", [400, 50], "green", 0.6)
 
             draw_cube(this.selec_rect.pos, this.selec_rect.size, this.selec_rect.color, this.selec_rect.alpha, false, ["red", 3])  
-            write_text("voltar para o menu(esc)", "25px Arial", [400, 570], "black", 0.6)          
+            write_text("voltar para o menu (ESC)", "25px Silkscreen", [400, 570], "white", 0.6)          
 
         }
 
@@ -1352,9 +1389,9 @@ const menu = {
     angle:0,
     op:[{
 
-        x:canvas.width/2-60,
+        x:400,
         y:370,
-        font:"bold 60px Arial",
+        font:"bold 60px Silkscreen",
         text:"jogar",
         color:"red",
         alpha:1,
@@ -1369,9 +1406,9 @@ const menu = {
     },
     {
 
-        x:canvas.width/2-110,
+        x:340,
         y:440,
-        font:"bold 60px Arial",
+        font:"bold 60px Silkscreen",
         text:"galinhas",
         color:"white",
         alpha:1,
@@ -1385,9 +1422,9 @@ const menu = {
     },
     {
 
-        x:canvas.width/2-65,
+        x:420,
         y:490,
-        font:"bold 60px Arial",
+        font:"bold 60px Silkscreen",
         text:"save",
         color:"white",
         alpha:1,
@@ -1462,7 +1499,8 @@ const menu = {
 
         background.draw(true)
 
-        write_text("galinha adventures", "bold 80px Arial", [50, 200], "white", 1)
+        write_text("galinha adventures", "bold 60px Silkscreen", [45, 200], "white", 1)
+        write_text(`recorde: ${beter_distance}`, "bold 60px Silkscreen", [270, 270], "yellow", 1)
 
         for (let i = 0; i < this.op.length; i++) {
              
@@ -1470,7 +1508,7 @@ const menu = {
 
         }
 
-        draw_image([820, 110], [153, 153], 1, skins_selector.skin_use[0], this.angle)
+        draw_image([30, 300], [153, 153], 1, skins_selector.skin_use[0], this.angle)
 
         this.angle++
 
@@ -1545,6 +1583,9 @@ function iniciar(mode) {
         buttons_satrt()
 
     }
+
+    play_sound(musica_fundo_1, 0.67, 0, true)
+
     try {
 
         money = Number(localStorage.getItem("money"))
@@ -1560,6 +1601,25 @@ function iniciar(mode) {
                 if (skins_selector.skins_price[i] == -2) {
 
                     skins_selector.skin_use[0] = skins_selector.skins[i]
+                    skins_selector.skin_use[1] = i
+
+                    if (skins_selector.skin_use[1] == 0) {
+
+                        skins_selector.skin_use[2] = player_skin_1_w
+
+                    }else if (skins_selector.skin_use[1] == 1) {
+
+                        skins_selector.skin_use[2] = player_skin_2_w
+
+                    }else if (skins_selector.skin_use[1] == 2) {
+
+                        skins_selector.skin_use[2] = player_skin_3_w
+
+                    }else if (skins_selector.skin_use[1] == 3) {
+
+                        skins_selector.skin_use[2] = player_skin_4_w
+
+                    }
 
                 }
 
@@ -1592,6 +1652,5 @@ function iniciar(mode) {
     play_game_button.style.opacity = 0
 
     mainloop()
-    play_sound(musica_fundo_1, 0.67, 0, true)
     
 }
