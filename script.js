@@ -252,7 +252,8 @@ function play_sound(sound, volume, start, loop) {
 
 //carregabdo musicas
 
-const musica_fundo_1 = new Audio("sprites/musica_game_1.mp3");
+const musica_fundo_game = new Audio("sprites/musica_fundo_2.mp3")
+const musica_fundo_menu = new Audio("sprites/musica_fundo_3.mp3")
 
 //caregando imagens imagens
 
@@ -813,7 +814,7 @@ const cena_1 = {
 
             morer:function() {
 
-                musica_fundo_1.pause()
+                musica_fundo_game.pause()
                 camera.vely = 0
                 this.vely = 0
                 this.alpha[0] = 0
@@ -842,7 +843,7 @@ const cena_1 = {
 
                 if (keys["Enter"] || keys["w"] || keys["s"] || keys["a"] || keys["d"] || keys["Escape"]) {
 
-                    play_sound(musica_fundo_1, 0.67, 0, true)
+                    play_sound(musica_fundo_menu, 0.67, 0, true)
 
                     money += distance.m
                     cena_id = 1
@@ -1055,7 +1056,7 @@ const cena_1 = {
             if (keys["Escape"]) {
 
                 pause = true
-                musica_fundo_1.pause()
+                musica_fundo_game.pause()
                 keys["Escape"] = false
 
             }
@@ -1082,7 +1083,7 @@ const cena_1 = {
 
                     player.vel *= 4
                     player.wait = 10
-                    distance.wait /= 4
+                    distance.wait = 15
                     camera.vely *= 4
 
                     ineventario.shift()
@@ -1105,7 +1106,7 @@ const cena_1 = {
             if (keys["Escape"]) {
 
                 pause = false
-                musica_fundo_1.play()
+                musica_fundo_game.play()
                 keys["Escape"] = false
 
             }
@@ -1398,6 +1399,8 @@ const menu = {
 
         active:function() {
 
+            play_sound(musica_fundo_game, 0.67, 0, true)
+            musica_fundo_menu.pause()
             cena_1.create()
             cena_id = 0
 
@@ -1584,7 +1587,7 @@ function iniciar(mode) {
 
     }
 
-    play_sound(musica_fundo_1, 0.67, 0, true)
+    play_sound(musica_fundo_menu, 0.67, 0, true)
 
     try {
 
