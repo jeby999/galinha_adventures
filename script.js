@@ -668,17 +668,18 @@ class power_up {
 
                 }
 
-                this.culdown = frame+ 2000
+                this.culdown = frame + 17
                 this.render = false
+                this.size = [0,0]
                 
             }
 
             if (this.culdown > 0 && this.culdown-700 == frame && player.vel == 8000*4) {
             
-                player.vel /= 4
+                player.vel = 8000*game_tick
                 player.wait = 50
-                distance.wait *= 4
-                camera.vely /= 4
+                distance.wait = 60*game_tick
+                camera.vely = 1
 
             }
 
@@ -700,11 +701,12 @@ class power_up {
                 if (ineventario.length <= 2) {
 
                     ineventario.unshift("life")
-                    powers[1].culdown = frame + 1000
+                    powers[1].culdown = frame + 90
 
                 }
 
                 this.render = false
+                this.size = [0,0]
                 
             }
 
@@ -723,7 +725,27 @@ class power_up {
 
         if (this.render) {
              
-            draw_image(this.pos, this.size, this.alpha, this.image)
+            draw_image([this.pos[0]-this.size[0]/2, this.pos[1]-this.size[1]/2], this.size, this.alpha, this.image)
+
+            if (this.size[0] < 100 && this.type == 1 || this.size[0] < 40 && this.type == 0) {
+
+                this.size[0] += 10
+
+            }
+
+            if (this.size[1] < 100 || this.size[1] < 80) {
+
+                if (this.type == 0) {
+
+                    this.size[1] += 20
+
+                }else if (this.type == 1) {
+
+                    this.size[1] += 10
+
+                }
+
+            }
 
         }
 
@@ -755,6 +777,13 @@ let background = {
 
 }
 
+const trasicao = {
+
+    color:"black",
+    alpha:10,
+
+}
+
 let money = 0
 let beter_distance = 0
 let cena_id = 1
@@ -769,7 +798,7 @@ const cena_1 = {
     create:function() {
 
         powers = [new power_up([randint(0, 830), randint(0, 470)], [40, 80], 0, true, [1, 0]),
-        new power_up([randint(0, 830), randint(0, 470)], [99, 93], 1, true,[1,0])]
+        new power_up([randint(0, 830), randint(0, 470)], [100, 100], 1, true,[1,0])]
 
         ineventario = []
 
@@ -808,7 +837,7 @@ const cena_1 = {
             acc:500*game_tick,
             life:50,
             skin_incator:0,
-            wait:50,
+            wait:50*game_tick,
             waiter:50*game_tick +frame,
             skin:skins_selector.skin_use[2],
 
@@ -1081,10 +1110,10 @@ const cena_1 = {
 
                 if (ineventario[0] == "vel") {
 
-                    player.vel *= 4
-                    player.wait = 10
+                    player.vel = 32000*game_tick
+                    player.wait = 10*game_tick
                     distance.wait = 15
-                    camera.vely *= 4
+                    camera.vely = 4
 
                     ineventario.shift()
                     keys["Enter"] = false
@@ -1142,11 +1171,11 @@ const cena_1 = {
 
                 if (i==0) {
                 
-                    draw_image([20+100*i,25], [30,50], 1, power_spr_1)
+                    draw_image([30+20*i,25], [30,50], 1, power_spr_1)
 
                 }else{
 
-                    draw_image([20+90*i,25], [30,50], 1, power_spr_1)
+                    draw_image([30+70*i,25], [30,50], 1, power_spr_1)
 
 
                 }
