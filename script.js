@@ -668,7 +668,7 @@ class power_up {
 
                 }
 
-                this.culdown = frame + 17
+                this.culdown = frame + 1200
                 this.render = false
                 this.size = [0,0]
                 
@@ -701,7 +701,7 @@ class power_up {
                 if (ineventario.length <= 2) {
 
                     ineventario.unshift("life")
-                    powers[1].culdown = frame + 90
+                    powers[1].culdown = frame + 900
 
                 }
 
