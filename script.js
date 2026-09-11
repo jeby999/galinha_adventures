@@ -1276,7 +1276,7 @@ const skins_selector = {
 
         }
 
-        if (keys["w"]) {
+        /*if (keys["w"]) {
 
             if (this.seleced[1] < this.seleced[3]) {
 
@@ -1303,7 +1303,7 @@ const skins_selector = {
         }
 
         if (this.seleced[1] == 0) { this.add = 6 }
-        else { this.add = 0 }
+        else { this.add = 0 }*/
 
         if (keys["Enter"]) {
 
@@ -1532,7 +1532,12 @@ const menu = {
         background.draw(true)
 
         write_text("galinha adventures", "bold 60px Silkscreen", [45, 200], "white", 1)
-        write_text(`recorde: ${beter_distance}`, "bold 60px Silkscreen", [270, 270], "yellow", 1)
+
+        if (beter_distance > 0) {
+
+            write_text(`recorde: ${beter_distance}`, "bold 60px Silkscreen", [270, 270], "yellow", 1)
+
+        }
 
         for (let i = 0; i < this.op.length; i++) {
              
