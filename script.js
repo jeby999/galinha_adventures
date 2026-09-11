@@ -1609,8 +1609,8 @@ function iniciar(mode) {
 
     if (mode == "mobile") {
 
-        canvas.width = window.innerWidth+150
-        canvas.height = window.innerHeight+140
+        canvas.width = window.innerWidth*1.3
+        canvas.height = window.innerHeight*1.3
 
         canvas.style.width = `${window.innerWidth}px`
         canvas.style.height = `${window.innerHeight}px`
